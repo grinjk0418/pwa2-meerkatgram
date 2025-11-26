@@ -9,7 +9,7 @@ const { User } = db;
 
 /**
  * 이메일로 유저 검색
- * @param {import("sequelize").Transaction;} t 
+ * @param {import("sequelize").Transaction} t 
  * @param {string} email 
  * @returns 
  */
