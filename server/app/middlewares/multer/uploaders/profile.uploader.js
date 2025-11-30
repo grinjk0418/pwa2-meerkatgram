@@ -7,8 +7,9 @@
 import multer from 'multer';
 import fs from 'fs';
 import dayjs from 'dayjs';
-import myError from '../../../errors/customs/my.error.js'
+import myError from '../../../errors/customs/my.error.js';
 import { BAD_FILE_ERROR } from '../../../../configs/responseCode.config.js';
+import pathUtil from '../../../utils/path/path.util.js';
 
 /**
  * 프로필 이미지 업로더 처리 미들웨어
@@ -19,15 +20,17 @@ import { BAD_FILE_ERROR } from '../../../../configs/responseCode.config.js';
 export default function(req, res, next) {
   // multer 객체 인스턴스
   const upload = multer({
-    // 파일을 저장할 위치를 상세하게 제어하는 프로퍼티
+    // storage: 파일을 저장할 위치를 상세하게 제어하는 프로퍼티
     storage: multer.diskStorage({
       // 파일 저장 경로 설정
-      destination (req, file, callback) {
+      destination(req, file, callback) {
+        const fullPath = pathUtil.getProfilesImagePath();
+
         // 저장 디렉토리 설정
-        if(!fs.existsSync(process.env.FILE_USER_PROFILE_PATH)) {
+        if(!fs.existsSync(fullPath)) {
           // 해당 디렉토리 없으면 생성 처리
           fs.mkdirSync(
-            process.env.FILE_USER_PROFILE_PATH,
+            fullPath,
             {
               recursive: true, // 중간 디렉토리까지 모두 생성
               mode: 0o755 // 권한 설정 rwxr-xr-x
@@ -35,15 +38,15 @@ export default function(req, res, next) {
           );
         }
 
-        callback(null, process.env.FILE_USER_PROFILE_PATH);
+        callback(null, fullPath);
       },
       // 파일명 설정
       filename(req, file, callback) {
         // 저장할 파일명 생성
-        const uniqueFileName = `${dayjs().format('YYYYMMDD')}_${crypto.randomUUID()}}`;
+        const uniqueFileName = `${dayjs().format('YYYYMMDD')}_${crypto.randomUUID()}`;
         const fileNameParts = file.originalname.split('.');
         const ext = fileNameParts[fileNameParts.length - 1].toLowerCase();
-
+        
         callback(null, `${uniqueFileName}.${ext}`);
       }
     }),
@@ -68,4 +71,3 @@ export default function(req, res, next) {
     next();
   });
 }
-
