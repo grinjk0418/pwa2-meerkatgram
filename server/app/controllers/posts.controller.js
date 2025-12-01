@@ -20,11 +20,17 @@ import { createBaseResponse } from "../utils/createBaseResponse.util.js";
  */
 async function index(req, res, next) {
   try {
-    const page = req.body?.page || 1;
+    const page = req.query?.page ? parseInt(req.query.page) : 1;
 
     const result = await postsService.pagination(page);
+
+    const responseData = {
+      page: page,
+      limit: 6,
+      posts: result,
+    };
     
-    return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, result));
+    return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, responseData));
   } catch(error) {
     return next(error);
   }
@@ -57,7 +63,7 @@ async function show(req, res, next) {
 async function store(req, res, next) {
   try {
     const data = {
-      userId: req.user.id,
+      userId: req.user.id, // auth middleware에서 셋팅한 값
       content: req.body.content,
       image: req.body.image,
     };
@@ -80,7 +86,7 @@ async function store(req, res, next) {
 async function destroy(req, res, next) {
   try {
     const data = {
-      userId: req.user.id,
+      userId: req.user.id, // auth middleware에서 셋팅한 값
       postId: req.params.id
     };
 

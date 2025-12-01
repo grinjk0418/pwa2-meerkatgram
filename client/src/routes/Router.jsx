@@ -25,24 +25,24 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: '/posts',
-        element: <PostIndex />
-      },
-      {
         path: '/registration',
         element: <Registration />
       },
       {
-        path: '/user-info',
+        path: '/user/:id',
         element: <UserInfo />
+      },
+      {
+        path: '/posts',
+        element: <PostIndex />
+      },
+      {
+        path: '/posts/show/:id',
+        element: <PostShow />
       },
       {
         path: '/posts/create',
         element: <PostCreate />
-      },
-      {
-        path: '/posts/:id',
-        element: <PostShow />
       },
     ]
   }

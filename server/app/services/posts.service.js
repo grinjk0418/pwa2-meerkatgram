@@ -51,7 +51,7 @@ async function create(data) {
  */
 async function destroy({ userId, postId }) {
   // 트랜잭션 시작
-  return db.sequelize.transaction(async t => {
+  return await db.sequelize.transaction(async t => {
     // (게시글 작성자 일치 확인용)
     const post = await postRepository.findByPk(t, postId);
 
