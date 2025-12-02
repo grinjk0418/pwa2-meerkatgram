@@ -1,7 +1,7 @@
 /**
  * @file app/controllers/posts.controller.js
  * @description 게시글 관련 컨트롤러
- * 251128 v1.0.0 jk init
+ * 251128 v1.0.0 park init
  */
 
 import { SUCCESS } from "../../configs/responseCode.config.js";
@@ -22,12 +22,13 @@ async function index(req, res, next) {
   try {
     const page = req.query?.page ? parseInt(req.query.page) : 1;
 
-    const result = await postsService.pagination(page);
+    const { count, rows } = await postsService.pagination(page);
 
     const responseData = {
       page: page,
       limit: 6,
-      posts: result,
+      count: count,
+      posts: rows,
     };
     
     return res.status(SUCCESS.status).send(createBaseResponse(SUCCESS, responseData));

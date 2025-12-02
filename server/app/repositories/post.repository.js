@@ -1,7 +1,7 @@
 /**
  * @file app/repositories/post.repository.js
  * @description Post Repository
- * 251128 v1.0.0 jk init
+ * 251128 v1.0.0 park init
  */
 
 import db from '../models/index.js';
@@ -14,20 +14,31 @@ const {sequelize, Post, Comment} = db;
  * @returns {Promise<Array<import("../models/Post.js").Post>>}
  */
 async function pagination(t = null, data) {
-  return await Post.findAll(
-    {
-      order: [
-        ['createdAt', 'DESC'],
-        ['updatedAt', 'DESC'],
-        ['id', 'ASC']
-      ],
-      limit: data.limit,
-      offset: data.offset
-    },
-    {
-      transaction: t,
-    }
-  );
+  return await Post.findAndCountAll({
+    order: [
+      ['createdAt', 'DESC'],
+      ['updatedAt', 'DESC'],
+      ['id', 'ASC']
+    ],
+    limit: data.limit,
+    offset: data.offset,
+    transaction: t,
+  });
+
+  // return await Post.findAll(
+  //   {
+  //     order: [
+  //       ['createdAt', 'DESC'],
+  //       ['updatedAt', 'DESC'],
+  //       ['id', 'ASC']
+  //     ],
+  //     limit: data.limit,
+  //     offset: data.offset
+  //   },
+  //   {
+  //     transaction: t,
+  //   }
+  // );
 }
 
 /**

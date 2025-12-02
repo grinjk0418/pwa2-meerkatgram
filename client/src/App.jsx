@@ -1,13 +1,12 @@
-import { Outlet } from 'react-router-dom';
 import './App.css'
 import Header from './components/common/Header.jsx'
-import UserInfo from './components/common/UserInfo.jsx';
+import ProtectedRouter from './routes/ProtectedRouter.jsx';
 
 function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <ProtectedRouter />
     </>
   )
 }
