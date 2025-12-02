@@ -50,5 +50,34 @@ axiosInstance.interceptors.request.use(async (config) => {
   }
 });
 
-
 export default axiosInstance;
+
+// -------------- 2번방법 --------------
+// axiosInstance.interceptors.response.use(
+//   res => res,
+//   async (error) => {
+//     const originalRequest = error.config;
+//     const noRetryList = [
+//       '/api/auth/reissue',
+//       '/api/auth/login'
+//     ];
+
+//     if (error.response?.status === 401 && !originalRequest._retry && !noRetryList.includes(originalRequest.url)) {
+//       originalRequest._retry = true;
+//       try {
+//         const response = await store.dispatch(reissueThunk()).unwrap();
+
+//         if(response.data.accessToken) {
+//           originalRequest.headers["Authorization"] = `Bearer ${response.data.accessToken}`;
+//           return axiosInstance(originalRequest);
+//         } else {
+//           throw new Error('재발급 실패');
+//         }
+//       } catch(error) {
+//         return Promise.reject(error); 
+//       }
+//     }
+
+//     return Promise.reject(error);
+//   }
+// );

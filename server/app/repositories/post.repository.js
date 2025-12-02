@@ -1,7 +1,7 @@
 /**
  * @file app/repositories/post.repository.js
  * @description Post Repository
- * 251128 v1.0.0 park init
+ * 251128 v1.0.0 jk init
  */
 
 import db from '../models/index.js';

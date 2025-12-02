@@ -1,7 +1,7 @@
 /**
  * @file app/controllers/posts.controller.js
  * @description 게시글 관련 컨트롤러
- * 251128 v1.0.0 park init
+ * 251128 v1.0.0 jk init
  */
 
 import { SUCCESS } from "../../configs/responseCode.config.js";
