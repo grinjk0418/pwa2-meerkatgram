@@ -51,12 +51,12 @@ const attributes = {
   },
   profile: {
     field: 'profile',
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(255),
     allowNull: false,
     comment: '유저 프로필',
   },
   refreshToken: {
-    field: 'refresh-token',
+    field: 'refresh_token',
     type: DataTypes.STRING(255),
     allowNull: true,
     comment: '리프레시 토큰',
