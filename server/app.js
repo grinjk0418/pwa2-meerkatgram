@@ -17,6 +17,7 @@ import notFoundRouter from "./routes/notFound.router.js";
 import pathUtil from "./app/utils/path/path.util.js";
 import cookieParser from "cookie-parser";
 import commentsRouter from "./routes/comments.router.js";
+import usersRouter from './routes/users.router.js';
 
 const app = express();
 app.use(express.json()); // JSON 요청 파싱 처리
@@ -44,7 +45,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/posts', postsRouter);
 app.use('/api/files', filesRouter);
 app.use('/api/comments', commentsRouter);
-// app.use('/api/users')
+app.use('/api/users', usersRouter);
 
 // --------------------------------
 // 404 처리
@@ -54,7 +55,7 @@ app.use(notFoundRouter);
 // --------------------------------
 // 뷰 반환 처리 (프론트엔드랑 백엔드를 한 도메인 서버로 사용해서 필요함)
 // --------------------------------
-// 퍼블릭 정적파일 제공 활정화
+// 퍼블릭 정적파일 제공 활성화
 app.use('/', express.static(process.env.APP_DIST_PATH));
 // React 뷰 반환
 app.get(/^(?!\/files).*/, (req, res) => {

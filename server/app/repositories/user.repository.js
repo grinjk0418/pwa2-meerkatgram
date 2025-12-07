@@ -9,8 +9,8 @@ const { User } = db;
 
 /**
  * 이메일로 유저 검색
- * @param {import("sequelize").Transaction} t 
- * @param {string} email 
+ * @param {import("sequelize").Transaction} t
+ * @param {string} email
  * @returns {Promise<import("../models/User.js").User>}
  */
 async function findByEmail(t = null, email) {
@@ -62,16 +62,17 @@ async function logout(t = null, id) {
     }
   );
 
-  // // 특정 유저 리프래시토큰 null로 갱신
+  // // 특정 유저 리프래시토큰 null로 갱신 (쿼리 평문으로 작성하는 법)
   // // UPDATE users SET refresh_token = null, updated_at = NOW() WHERE id = ?
-  // const sql =
-  //     ' UPDATE users '
-  //   + ' SET '
-  //   + '   refresh_token = null '
-  //   + '   ,updated_at = NOW() '
-  //   + ' WHERE '
-  //   + '   id = ? '
-  // ;
+  // const query = 
+  //       ' UPDATE users ' 
+  //     + ' SET '
+  //     + '   refresh_token = null '
+  //     + '   ,updated_at = NOW() ' // v1.1.0 add
+  //     // + '   ,updated_at = NOW() ' // v1.1.0 del
+  //     + ' WHERE '
+  //     + '   id = ? '
+  //   ;
   // const values = [id];
 
   // db.sequelize.query({query, values});

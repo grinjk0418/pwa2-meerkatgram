@@ -24,14 +24,6 @@ import socialKakaoUtil from "../utils/social/social.kakao.util.js";
  * @returns
  */
 async function login(req, res, next) {
-  // logger.error('에러에러');
-  // logger.warn('워닝워닝');
-  // logger.info('인포인포');
-  // logger.http('에이치티티피');
-  // logger.verbose('버보스');
-  // logger.debug('디버그');
-  // logger.silly('실리');
-
   try {
     const body = req.body; // 파라미터 획득
 
