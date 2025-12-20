@@ -11,6 +11,29 @@ async function upsert(t = null, data) {
   return await PushSubscription.upsert(data, {transaction: t}); // 유니크나 pk값 있으면 upsert 제대로 작동되게 쓸수 있음
 }
 
+async function findByUserId(t = null, userId) {
+  return await PushSubscription.findAll(
+    {
+      where: {
+        userId: userId
+      }
+    },
+    {
+      transaction: t
+    }
+  );
+}
+
+async function hardDestroy(t = null, id) {
+  return await PushSubscription.destroy({
+    where: {id: id},
+    force: true,
+    transaction: t,
+  });
+}
+
 export default {
   upsert,
+  findByUserId,
+  hardDestroy,
 }

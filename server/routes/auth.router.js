@@ -19,5 +19,4 @@ authRouter.post('/reissue', authController.reissue);
 authRouter.get('/social/:provider', socialValidator, validationHandler, authController.social);
 authRouter.get('/callback/:provider', authController.socialCallback);
 
-
 export default authRouter;
